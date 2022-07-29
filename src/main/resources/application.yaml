@@ -1,0 +1,9 @@
+spring:
+  cloud:
+    gcp:
+      project-id: "my-wallet-357616"
+      credentials:
+        location: "file:sa-my-wallet-357616-33dc3721140f.json"
+        scopes: "https://www.googleapis.com/auth/datastore"
+      datastore:
+        namespace: "expense-app"
