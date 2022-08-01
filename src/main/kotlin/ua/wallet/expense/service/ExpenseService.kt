@@ -35,7 +35,8 @@ class ExpenseService(private val expenseRepository: ExpenseRepository) {
             expenseDto.price,
             expenseDto.payed,
             expenseDto.storeName,
-            ZonedDateTime.of(expenseDto.date, ZoneId.of("Europe/Zagreb"))
+            ZonedDateTime.of(expenseDto.date, ZoneId.of("Europe/Zagreb")),
+            expenseDto.category
         )
         expenseRepository.save(expense)
         println("New entity created")
