@@ -11,6 +11,7 @@ data class ExpenseDto(
     val units: Units,
     val price: BigDecimal,
     val payed: BigDecimal,
+    val currency: Currency,
     val storeName: String,
     val date: LocalDateTime,
     val category: Category

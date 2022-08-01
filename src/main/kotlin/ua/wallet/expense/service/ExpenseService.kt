@@ -3,7 +3,10 @@ package ua.wallet.expense.service
 import org.springframework.stereotype.Service
 import ua.wallet.expense.datastore.entity.Expense
 import ua.wallet.expense.datastore.repository.ExpenseRepository
+import ua.wallet.expense.dto.Currency
 import ua.wallet.expense.dto.ExpenseDto
+import java.math.BigDecimal
+import java.math.RoundingMode.HALF_UP
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
@@ -32,13 +35,18 @@ class ExpenseService(private val expenseRepository: ExpenseRepository) {
             expenseDto.productName,
             expenseDto.amount,
             expenseDto.units,
-            expenseDto.price,
-            expenseDto.payed,
+            adjustPrice(expenseDto.currency, expenseDto.price),
+            adjustPrice(expenseDto.currency, expenseDto.payed),
             expenseDto.storeName,
             ZonedDateTime.of(expenseDto.date, ZoneId.of("Europe/Zagreb")),
             expenseDto.category
         )
         expenseRepository.save(expense)
-        println("New entity created")
+        println("New entity created: $expense")
     }
+
+    private fun adjustPrice(currency: Currency, price: BigDecimal) = when (currency) {
+        Currency.EURO -> price
+        Currency.KUNA -> price.div(BigDecimal(7.53450))
+    }.setScale(2, HALF_UP)
 }

@@ -25,6 +25,12 @@
     <label for="payed">Payed:</label><br>
     <input type="number" id="payed" name="payed" min="0" step=".01"><br>
 
+    <label for="currency">Currency:</label><br>
+    <select id="currency" name="currency">
+        <option value="EURO">Euro</option>
+        <option value="KUNA">Kuna</option>
+    </select><br>
+
     <label for="storeName">Store name:</label><br>
     <input type="text" id="storeName" name="storeName"><br>
 
@@ -51,8 +57,10 @@
             units: f.querySelector('select[name="units"]').value,
             price: f.querySelector('input[name="price"]').value,
             payed: f.querySelector('input[name="payed"]').value,
+            currency: f.querySelector('select[name="currency"]').value,
             storeName: f.querySelector('input[name="storeName"]').value,
-            date: f.querySelector('input[name="date"]').value
+            date: f.querySelector('input[name="date"]').value,
+            category: f.querySelector('select[name="category"]').value
         };
 
         await fetch('http://localhost:8080/expense', {
