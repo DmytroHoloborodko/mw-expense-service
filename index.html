@@ -9,21 +9,8 @@
     <label for="productName">Product name:</label><br>
     <input type="text" id="productName" name="productName"><br>
 
-    <label for="amount">Amount:</label><br>
-    <input type="number" id="amount" name="amount" min="0" step=".01"><br>
-
-    <label for="units">Units:</label><br>
-    <select id="units" name="units">
-        <option value="L">Litre</option>
-        <option value="KG">Kilogram</option>
-        <option value="ITEM">Item</option>
-    </select><br>
-
     <label for="price">Price:</label><br>
     <input type="number" id="price" name="price" min="0" step=".01"><br>
-
-    <label for="payed">Payed:</label><br>
-    <input type="number" id="payed" name="payed" min="0" step=".01"><br>
 
     <label for="currency">Currency:</label><br>
     <select id="currency" name="currency">
@@ -53,10 +40,7 @@
 
         const data = {
             productName: f.querySelector('input[name="productName"]').value,
-            amount: f.querySelector('input[name="amount"]').value,
-            units: f.querySelector('select[name="units"]').value,
             price: f.querySelector('input[name="price"]').value,
-            payed: f.querySelector('input[name="payed"]').value,
             currency: f.querySelector('select[name="currency"]').value,
             storeName: f.querySelector('input[name="storeName"]').value,
             date: f.querySelector('input[name="date"]').value,

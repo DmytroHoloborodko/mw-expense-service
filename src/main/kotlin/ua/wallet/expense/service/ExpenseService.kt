@@ -31,15 +31,12 @@ class ExpenseService(private val expenseRepository: ExpenseRepository) {
 
     fun saveExpenseData(expenseDto: ExpenseDto) {
         val expense = Expense(
-            null,
-            expenseDto.productName,
-            expenseDto.amount,
-            expenseDto.units,
-            adjustPrice(expenseDto.currency, expenseDto.price),
-            adjustPrice(expenseDto.currency, expenseDto.payed),
-            expenseDto.storeName,
-            ZonedDateTime.of(expenseDto.date, ZoneId.of("Europe/Zagreb")),
-            expenseDto.category
+            id = null,
+            productName = expenseDto.productName,
+            price = adjustPrice(expenseDto.currency, expenseDto.price),
+            storeName = expenseDto.storeName,
+            date = ZonedDateTime.of(expenseDto.date, ZoneId.of("Europe/Zagreb")),
+            category = expenseDto.category
         )
         expenseRepository.save(expense)
         println("New entity created: $expense")
