@@ -7,3 +7,16 @@ spring:
         scopes: "https://www.googleapis.com/auth/datastore"
       datastore:
         namespace: "expense-app"
+
+management:
+  endpoints:
+    enabled-by-default: false
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      enabled: true
+app:
+  domain:
+    categories: FOOD, ENTERTAINMENT, UTILITIES, HOME, OTHER

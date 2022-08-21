@@ -1,5 +1,6 @@
 package ua.wallet.expense.service
 
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import ua.wallet.expense.datastore.entity.Expense
 import ua.wallet.expense.datastore.repository.ExpenseRepository
@@ -11,23 +12,10 @@ import java.time.ZoneId
 import java.time.ZonedDateTime
 
 @Service
-class ExpenseService(private val expenseRepository: ExpenseRepository) {
-
-//    @EventListener(ApplicationStartedEvent::class)
-//    fun onStart() {
-//        val expense = Expense(
-//            null,
-//            "Test",
-//            BigDecimal(1),
-//            Units.L,
-//            BigDecimal(1 / 7.53450),
-//            BigDecimal(1 / 7.53450),
-//            "TEST",
-//            ZonedDateTime.of(2022, 7, 27, 14, 13, 0, 0, ZoneId.of("Europe/Zagreb"))
-//        )
-//        expenseRepository.save(expense)
-//        expenseRepository.findAll().forEach(::println)
-//    }
+class ExpenseService(
+    private val expenseRepository: ExpenseRepository,
+    @Value("\${app.domain.categories}") private val categories: List<String>
+) {
 
     fun saveExpenseData(expenseDto: ExpenseDto) {
         val expense = Expense(
@@ -36,11 +24,15 @@ class ExpenseService(private val expenseRepository: ExpenseRepository) {
             price = adjustPrice(expenseDto.currency, expenseDto.price),
             storeName = expenseDto.storeName,
             date = ZonedDateTime.of(expenseDto.date, ZoneId.of("Europe/Zagreb")),
-            category = expenseDto.category
+            category = validateCategory(expenseDto.category)
         )
         expenseRepository.save(expense)
         println("New entity created: $expense")
     }
+
+    private fun validateCategory(category: String) =
+        if (categories.contains(category)) category
+        else throw IllegalArgumentException()
 
     private fun adjustPrice(currency: Currency, price: BigDecimal) = when (currency) {
         Currency.EURO -> price
