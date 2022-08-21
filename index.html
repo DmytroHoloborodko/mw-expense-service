@@ -30,6 +30,7 @@
         <option value="ENTERTAINMENT">Entertainment</option>
         <option value="UTILITIES">Utilities</option>
         <option value="HOME">Home</option>
+        <option value="OTHER">Other</option>
     </select><br><br>
 
     <input type="submit" value="Submit">
@@ -57,6 +58,13 @@
             },
             body: JSON.stringify(data),
         })
+        var el = document.createElement("div");
+        el.setAttribute("style", "position:absolute;top:30%;left:5%;background-color:white;");
+        el.innerHTML = 'OK';
+        setTimeout(function () {
+            el.parentNode.removeChild(el);
+        }, 3000);
+        document.body.appendChild(el);
     };
 </script>
 </html>
