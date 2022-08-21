@@ -13,5 +13,5 @@ data class Expense(
     val price: BigDecimal,
     val storeName: String,
     val date: ZonedDateTime,
-    val category: Category
+    val category: String
 )

@@ -7,3 +7,7 @@ spring:
         scopes: "https://www.googleapis.com/auth/datastore"
       datastore:
         namespace: "expense-app"
+
+app:
+  domain:
+    categories: FOOD, ENTERTAINMENT, UTILITIES, HOME, OTHER
