@@ -1,16 +1,20 @@
 steps:
+  - name: gradle:7.5.1-jdk11
+    entrypoint: gradle
+    args: [ 'bootJar' ]
+
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'bash'
-    args: [ '-c', 'gcloud config set app/cloud_build_timeout 1600 && gcloud app deploy' ]
-timeout: '1600s'
+    args: [ '-c', 'gcloud secrets versions access 1 --secret="sa-my-wallet-357616-33dc3721140f" > sa-my-wallet-357616-33dc3721140f.json' ]
 
-#steps:
-#  - name: gradle:7.5.1-jdk11
-#    entrypoint: gradle
-#    args: [ 'bootJar' ]
-#
-#  - name: gcr.io/cloud-builders/docker
-#    args: [ "build", "-t", "gcr.io/$PROJECT_ID/${_SERVICE_NAME}:${SHORT_SHA}", "." ]
-#
-#  - name: "gcr.io/cloud-builders/docker"
-#    args: [ "push", "gcr.io/$PROJECT_ID/${_SERVICE_NAME}:${SHORT_SHA}" ]
+  - name: gcr.io/cloud-builders/docker
+    args: [ "build", "-t", "gcr.io/$PROJECT_ID/${_SERVICE_NAME}:${SHORT_SHA}", "." ]
+
+  - name: "gcr.io/cloud-builders/docker"
+    args: [ "push", "gcr.io/$PROJECT_ID/${_SERVICE_NAME}:${SHORT_SHA}" ]
+
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'bash'
+    args: [ '-c', 'gcloud config set app/cloud_build_timeout 1600 && gcloud app deploy --image-url=gcr.io/$PROJECT_ID/${_SERVICE_NAME}:${SHORT_SHA}' ]
+
+timeout: '1600s'

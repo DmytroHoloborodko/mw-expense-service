@@ -1,2 +1,4 @@
 runtime: java11
-#service: mw-expense-service
+env: flex
+manual_scaling:
+  instances: 1
