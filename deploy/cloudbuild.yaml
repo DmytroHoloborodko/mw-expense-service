@@ -1,7 +1,7 @@
 steps:
   - name: gradle:8.4-jdk17
     entrypoint: gradle
-    args: [ 'bootJar', '--no-daemon' ]
+    args: [ 'bootJar' ]
 
 #  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
 #    entrypoint: 'bash'
