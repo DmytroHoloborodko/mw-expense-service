@@ -1,4 +1,4 @@
-package ua.wallet.expense
+package com.mw.expense
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
